@@ -1,5 +1,6 @@
 package pb.frontend
 
+import org.scalajs.dom
 import org.scalajs.dom.html
 import org.scalajs.dom.ext._
 
@@ -15,7 +16,7 @@ object PairingBuddyApp {
     target.onsubmit = { e =>
       e.preventDefault()
       Ajax.get("http://localhost:8081/start-session").onComplete {
-        case Success(xhr) => global.alert("yay")
+        case Success(xhr) => dom.window.location.href = xhr.responseText
         case Failure(_) => global.alert("oh nooo")
       }
     }
