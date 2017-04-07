@@ -12,9 +12,11 @@ object Settings {
     "-feature"
   )
 
-  object versions {
-    val scala    = "2.12.1"
-    val scalaDom = "0.9.1"
+  object v {
+    val scala          = "2.12.1"
+    val scalaDom       = "0.9.1"
+    val akkaHttp       = "10.0.5"
+    val scalajsScripts = "1.1.0"
   }
 
   val sharedDependencies = Def.setting(
@@ -24,14 +26,14 @@ object Settings {
 
   val jvmDependencies = Def.setting(
     Seq(
-      "com.typesafe.akka" %% "akka-http" % "10.0.5",
-      "ch.megard" %% "akka-http-cors" % "0.2.1"
-      )
+      "com.typesafe.akka" %% "akka-http"       % v.akkaHttp,
+      "com.vmunier"       %% "scalajs-scripts" % v.scalajsScripts
+    )
   )
 
   val scalajsDependencies = Def.setting(
     Seq(
-      "org.scala-js" %%% "scalajs-dom" % versions.scalaDom
+      "org.scala-js" %%% "scalajs-dom" % v.scalaDom
     )
   )
 }
