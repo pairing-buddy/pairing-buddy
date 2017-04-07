@@ -1,22 +1,23 @@
 package pb.frontend
 
 import org.scalajs.dom.html
+import org.scalajs.dom.ext._
 
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.scalajs.js.Dynamic.global
 import scala.scalajs.js.annotation.JSExport
+import scala.util.{Failure, Success}
 
 @JSExport
 object PairingBuddyApp {
   @JSExport
-  def main(target: html.Div): Unit = {
-    val (f, d) = ("Arturas", "Kacper")
-    target.innerHTML = s"""
-    <div>
-      <h1>Hello World!</h1>
-      <p>
-        The quick brown <b>$f</b>
-        jumps over the lazy <i>$d</b>
-      </p>
-    </div>
-    """
+  def main(target: html.Form): Unit = {
+    target.onsubmit = { e =>
+      e.preventDefault()
+      Ajax.get("http://localhost:8081/start-session").onComplete {
+        case Success(xhr) => global.alert("yay")
+        case Failure(_) => global.alert("oh nooo")
+      }
+    }
   }
 }
