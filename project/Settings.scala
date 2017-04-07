@@ -24,6 +24,8 @@ object Settings {
 
   val jvmDependencies = Def.setting(
     Seq(
+      "com.typesafe.akka" %% "akka-http" % "10.0.5",
+      "ch.megard" %% "akka-http-cors" % "0.2.1"
       )
   )
 
