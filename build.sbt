@@ -38,7 +38,7 @@ lazy val backend = (project in file("backend"))
     dockerExposedPorts := Seq(8082),
     dockerRepository in Docker := Some("asarturas"),
     packageName in Docker := "pairing-buddy",
-    version in Docker := s"${version.value}-${System.currentTimeMillis / 1000}"
+    version in Docker := "latest"
   )
   .enablePlugins(SbtWeb, SbtTwirl, AshScriptPlugin, DockerPlugin)
   .dependsOn(sharedJvm)
