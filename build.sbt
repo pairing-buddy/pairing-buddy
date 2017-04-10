@@ -33,9 +33,14 @@ lazy val backend = (project in file("backend"))
     pipelineStages in Assets := Seq(scalaJSPipeline),
     compile in Compile <<= (compile in Compile) dependsOn scalaJSPipeline,
     WebKeys.packagePrefix in Assets := "public/",
-    managedClasspath in Runtime += (packageBin in Assets).value
+    managedClasspath in Runtime += (packageBin in Assets).value,
+    dockerBaseImage := "openjdk:8-jre-alpine",
+    dockerExposedPorts := Seq(8082),
+    dockerRepository in Docker := Some("asarturas"),
+    packageName in Docker := "pairing-buddy",
+    version in Docker := s"${version.value}-${System.currentTimeMillis / 1000}"
   )
-  .enablePlugins(SbtWeb, SbtTwirl)
+  .enablePlugins(SbtWeb, SbtTwirl, AshScriptPlugin, DockerPlugin)
   .dependsOn(sharedJvm)
 
 onLoad in Global := (Command.process("project backend", _: State)) compose (onLoad in Global).value
