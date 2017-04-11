@@ -8,10 +8,26 @@ jobs:
       - checkout
       - setup_remote_docker
       - deploy:
-          name: Maybe deploy
+          name: Publish to Docker Hub
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               apk add --no-cache docker
               docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
               sbt docker:publish
+            fi
+  deploy_to_gce:
+    working_directory: /
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - run:
+          name: Deploy to GCE
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo $GCE_SERVICE | base64 --decode --ignore-garbage > ${HOME}/gcloud-service-key.json
+              export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcloud-service-key.json
+              gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+              gcloud config set project pairing-buddy
+              gcloud container clusters get-credentials pairing-buddy-2 --zone us-east1-d --project pairing-buddy
+              kubectl rolling-update pairing-buddy-latest --image=asarturas/pairing-buddy:latest --image-pull-policy Always
             fi
