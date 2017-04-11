@@ -17,7 +17,8 @@ lazy val frontend: Project = (project in file("frontend"))
     version := Settings.version,
     scalaVersion := Settings.v.scala,
     scalacOptions ++= Settings.scalacOptions,
-    libraryDependencies ++= Settings.scalajsDependencies.value
+    libraryDependencies ++= Settings.scalajsDependencies.value,
+    scalaJSUseMainModuleInitializer := true
   )
   .enablePlugins(ScalaJSPlugin, ScalaJSWeb)
   .dependsOn(sharedJs)
