@@ -8,10 +8,10 @@ import org.scalajs.dom.raw.HTMLFormElement
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic.global
-import scala.scalajs.js.annotation.JSExport
+import scala.scalajs.js.annotation.JSExportTopLevel
 import scala.util.{Failure, Success}
 
-@JSExport
+@JSExportTopLevel("PairingBuddyApp")
 object PairingBuddyApp extends js.JSApp {
   override def main(): Unit =
     document.getElementById("start-session").asInstanceOf[HTMLFormElement].onsubmit = { e =>
