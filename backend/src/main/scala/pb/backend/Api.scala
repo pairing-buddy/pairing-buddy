@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.{Directives, Route}
 import akka.stream.ActorMaterializer
+import com.typesafe.config.ConfigFactory
 import pb.backend.infrastructure.twirl._
 
 import scala.concurrent.ExecutionContext
@@ -36,9 +37,10 @@ object Api extends App {
   implicit val system               = ActorSystem()
   implicit val materializer         = ActorMaterializer()
   implicit val ec: ExecutionContext = system.dispatcher
+  val config = ConfigFactory.load().getConfig("pairing-buddy")
 
-  private val host = "0.0.0.0"
-  private val port = 8082
+  private val host = config.getString("host")
+  private val port = config.getInt("port")
 
   Http().bindAndHandle((new Api).route, host, port).onComplete {
     case Success(_) => println(s"Pairing buddy available at http://$host:$port/")

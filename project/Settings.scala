@@ -7,9 +7,19 @@ object Settings {
 
   val scalacOptions = Seq(
     "-Xlint",
+    "-deprecation",
+    "-encoding",
+    "UTF-8",
     "-unchecked",
     "-deprecation",
-    "-feature"
+    "-feature",
+    "-language:postfixOps",
+    "-Xfuture",
+    "-Yno-adapted-args",
+    "-Ywarn-dead-code",
+    "-Ywarn-numeric-widen",
+    "-Ywarn-value-discard",
+    "-Ywarn-unused"
   )
 
   object v {
@@ -17,6 +27,7 @@ object Settings {
     val scalaDom       = "0.9.1"
     val akkaHttp       = "10.0.5"
     val scalajsScripts = "1.1.0"
+    val config         = "1.3.1"
   }
 
   val sharedDependencies = Def.setting(
@@ -27,7 +38,8 @@ object Settings {
   val jvmDependencies = Def.setting(
     Seq(
       "com.typesafe.akka" %% "akka-http"       % v.akkaHttp,
-      "com.vmunier"       %% "scalajs-scripts" % v.scalajsScripts
+      "com.vmunier"       %% "scalajs-scripts" % v.scalajsScripts,
+      "com.typesafe"      % "config"           % v.config
     )
   )
 
