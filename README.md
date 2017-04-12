@@ -10,7 +10,7 @@
    sbt ~re-start
    ```
 3. Access site:
-    [http://0.0.0.0:8082/](http://0.0.0.0:8082/)
+    [http://0.0.0.0:8080/](http://0.0.0.0:8080/)
 
 ## Deployment
 
