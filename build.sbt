@@ -45,3 +45,5 @@ lazy val backend = (project in file("backend"))
   .dependsOn(sharedJvm)
 
 onLoad in Global := (Command.process("project backend", _: State)) compose (onLoad in Global).value
+
+addCommandAlias("verify", ";test")
