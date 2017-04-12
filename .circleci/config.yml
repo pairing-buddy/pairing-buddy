@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - test:
+      - run:
           name: Run test
           command: sbt verify
       - deploy:
